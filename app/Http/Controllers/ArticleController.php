@@ -29,7 +29,7 @@ class ArticleController extends Controller
         $articles = DB::table('articles')->select('*');
         return Datatables::of($articles)
             ->addColumn('action', function($id) {
-                return '<a data-target="#myModal" href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" class="btn btn-primary">Edit</a> <a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" class="btn btn-primary">Delete</a>';
+                return '<a id="' . $id->id . '" data-target="#myModal" href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" class="btn btn-primary">Edit</a> <a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" class="btn btn-primary">Delete</a>';
             })
             ->make(true);
     }

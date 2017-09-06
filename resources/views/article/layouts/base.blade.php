@@ -53,8 +53,14 @@
                     ]
                 });
 
+                $('#myModal').on('show.bs.modal', function(e) {
+                    if(e.relatedTarget != undefined){
+                        alert(e.relatedTarget.id);
+                    }
+                });;
             });
 
         </script>
+
     </footer>
 </html>

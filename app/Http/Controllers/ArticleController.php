@@ -28,8 +28,82 @@ class ArticleController extends Controller
         $articles = DB::table('articles')->select('*');
         return Datatables::of($articles)
             ->addColumn('action', function($id) {
-                return '<a href="articles/' . $id->id . '/edit" class="btn btn-primary">Edit</a><a href="articles/' . $id->id . '/edit" class="btn btn-primary">Delete</a>';
+                return '<a href="article/' . $id->id . '/edit" class="btn btn-primary">Edit</a> <a href="article/'.$id->id.'" class="btn btn-primary">Delete</a>';
             })
             ->make(true);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+
     }
 }

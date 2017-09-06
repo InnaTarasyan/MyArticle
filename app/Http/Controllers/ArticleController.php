@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function datatable()
     {
-        return view('datatable');
+        return view('article.index');
     }
 
     /**

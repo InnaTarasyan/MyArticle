@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/data', function () {
+    return View::make('article.index');
+});
+

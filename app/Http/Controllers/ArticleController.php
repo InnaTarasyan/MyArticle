@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables as Datatables;
 use DB;
@@ -28,7 +29,7 @@ class ArticleController extends Controller
         $articles = DB::table('articles')->select('*');
         return Datatables::of($articles)
             ->addColumn('action', function($id) {
-                return '<a href="article/' . $id->id . '/edit" class="btn btn-primary">Edit</a> <a href="article/'.$id->id.'" class="btn btn-primary">Delete</a>';
+                return '<a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" class="btn btn-primary">Edit</a> <a href="article/'.$id->id.'" class="btn btn-primary">Delete</a>';
             })
             ->make(true);
     }
@@ -104,6 +105,6 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-
+       Article::where('id', $id)->first()->delete();
     }
 }

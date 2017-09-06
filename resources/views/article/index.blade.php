@@ -1,6 +1,8 @@
 @extends('article.layouts.base')
 @section('content')
-    <table id="articles" class="table table-hover table-condensed" style="width:100%">
+
+
+    <table id="articles" class="table table-hover table-condensed" style="width:100%; padding-top:1%">
         <thead>
         <tr>
             <th>Id</th>
@@ -13,4 +15,6 @@
         </tr>
         </thead>
     </table>
+
+
 @endsection

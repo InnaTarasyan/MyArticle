@@ -17,4 +17,5 @@
     </table>
 
 
+    <a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" class="btn btn-primary">Add Article</a>
 @endsection

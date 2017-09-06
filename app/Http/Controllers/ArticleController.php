@@ -27,6 +27,9 @@ class ArticleController extends Controller
     {
         $articles = DB::table('articles')->select('*');
         return Datatables::of($articles)
+            ->addColumn('action', function($id) {
+                return '<a href="articles/' . $id->id . '/edit" class="btn btn-primary">Edit</a><a href="articles/' . $id->id . '/edit" class="btn btn-primary">Delete</a>';
+            })
             ->make(true);
     }
 }

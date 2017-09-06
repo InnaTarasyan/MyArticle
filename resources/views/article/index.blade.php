@@ -9,6 +9,7 @@
             <th>Main Image</th>
             <th>Data</th>
             <th>Url</th>
+            <th>Action</th>
         </tr>
         </thead>
     </table>

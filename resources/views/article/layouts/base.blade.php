@@ -25,10 +25,13 @@
                         {data: 'description', name: 'description'},
                         {data: 'main_image', name: 'main_image'},
                         {data: 'data', name: 'data'},
-                        {data: 'url', name: 'url'}
+                        {data: 'url', name: 'url'},
+                        {data: 'action', name: 'action'},
                     ]
                 });
+
             });
+
         </script>
     </footer>
 </html>

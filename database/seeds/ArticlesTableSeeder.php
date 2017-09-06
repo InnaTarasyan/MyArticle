@@ -17,42 +17,6 @@ class ArticlesTableSeeder extends Seeder
             'main_image' => str_random(5).'png',
             'data' => date("Y-m-d H:i:s"),
             'url' => 'http'.str_random(5).'.com'
-        ], [
-            'title' => str_random(5),
-            'description' => str_random(10),
-            'main_image' => str_random(5).'png',
-            'data' => date("Y-m-d H:i:s"),
-            'url' => 'http'.str_random(5).'.com'
-        ], [
-            'title' => str_random(5),
-            'description' => str_random(10),
-            'main_image' => str_random(5).'png',
-            'data' => date("Y-m-d H:i:s"),
-            'url' => 'http'.str_random(5).'.com'
-        ], [
-            'title' => str_random(5),
-            'description' => str_random(10),
-            'main_image' => str_random(5).'png',
-            'data' => date("Y-m-d H:i:s"),
-            'url' => 'http'.str_random(5).'.com'
-        ], [
-            'title' => str_random(5),
-            'description' => str_random(10),
-            'main_image' => str_random(5).'png',
-            'data' => date("Y-m-d H:i:s"),
-            'url' => 'http'.str_random(5).'.com'
-        ], [
-            'title' => str_random(5),
-            'description' => str_random(10),
-            'main_image' => str_random(5).'png',
-            'data' => date("Y-m-d H:i:s"),
-            'url' => 'http'.str_random(5).'.com'
-        ], [
-            'title' => str_random(5),
-            'description' => str_random(10),
-            'main_image' => str_random(5).'png',
-            'data' => date("Y-m-d H:i:s"),
-            'url' => 'http'.str_random(5).'.com'
         ]);
     }
 }

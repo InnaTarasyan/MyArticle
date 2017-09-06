@@ -11,11 +11,14 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/data', function () {
-    return View::make('article.index');
-});
+//Route::get('/data', function () {
+//    return View::make('article.index');
+//});
 
+Route::get('datatable', ['uses'=>'ArticleController@datatable']);
+Route::get('datatable/getposts', ['as'=>'datatable.getposts','uses'=>'ArticleController@getPosts']);

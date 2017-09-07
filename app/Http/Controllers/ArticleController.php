@@ -28,8 +28,8 @@ class ArticleController extends Controller
     {
         $articles = DB::table('articles')->select('*');
         return Datatables::of($articles)
-            ->addColumn('action', function($id) {
-                return '<a id="' . $id->id . '" data-target="#myModal" href="#myModal" role="button" class="btn btn-large btn-primary edit" data-toggle="modal" >Edit</a> <a href="#myModal" id="' . $id->id . '" data-target="#myModal" role="button" class="btn btn-large btn-primary delete" data-toggle="modal" >Delete</a>';
+            ->addColumn('action', function($article) {
+                return '<a id="' . $article->id . '" data-target="#delModal" href="#delModal" role="button" class="btn btn-large btn-primary edit" data-toggle="modal" data-article-title="'.$article->title.'" data-article-description="'.$article->description.'" data-article-main_image="'.$article->main_image.'" data-article-data="'.$article->data.'" data-article-url="'.$article->url.'">Edit</a> <a href="#delModal" id="' . $article->id . '" data-target="#delModal" role="button" class="btn btn-large btn-primary delete" data-toggle="modal" >Delete</a>';
             })
             ->make(true);
     }
@@ -87,14 +87,30 @@ class ArticleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified user.
      *
-     * @param  int  $id
+     * @param  Request  $request
+     * @param  string  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
+       $status = 'fail';
+       $id = $request->id;
+       $title = $request->title;
+       $description = $request->description;
+       $main_image = $request->main_image;
+       $url = $request->url;
+       $data = $request->data;
 
+        $article = Article::where('id', $id)->first();
+        if($article) {
+            $article
+                ->update(['title' => $title, 'description' => $description, 'main_image' => $main_image, 'url' => $url, 'data' => $data]);
+            $status = 'ok';
+        }
+
+        return response()->json(['status' => $status]);
     }
 
     /**

@@ -29,7 +29,7 @@ class ArticleController extends Controller
         $articles = DB::table('articles')->select('*');
         return Datatables::of($articles)
             ->addColumn('action', function($id) {
-                return '<a id="' . $id->id . '" data-target="#myModal" href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" class="btn btn-primary">Edit</a> <a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" class="btn btn-primary">Delete</a>';
+                return '<a id="' . $id->id . '" data-target="#myModal" href="#myModal" role="button" class="btn btn-large btn-primary edit" data-toggle="modal" >Edit</a> <a href="#myModal" id="' . $id->id . '" data-target="#myModal" role="button" class="btn btn-large btn-primary delete" data-toggle="modal" >Delete</a>';
             })
             ->make(true);
     }
@@ -105,6 +105,12 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-       Article::where('id', $id)->first()->delete();
+        $status = 'fail';
+        $article = Article::where('id', $id)->first();
+        if($article){
+            $article->delete();
+            $status = 'ok';
+        }
+        return response()->json(['status' => $status]);
     }
 }

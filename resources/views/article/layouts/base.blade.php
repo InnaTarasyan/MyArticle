@@ -20,12 +20,12 @@
                         <h4 class="modal-title">Confirmation</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Do you want to save changes you made to document before closing?</p>
+                        <p>Do you want to apply the changes?</p>
                         <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary save">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -55,9 +55,36 @@
 
                 $('#myModal').on('show.bs.modal', function(e) {
                     if(e.relatedTarget != undefined){
-                        alert(e.relatedTarget.id);
+                        var target = e.relatedTarget;
+                        var id = target.id;
+
+                        $(document).click('.save', function(){
+                            if($(target).hasClass("delete")){
+                                $.ajax({
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        id: id,
+                                        _method: 'DELETE',
+                                        "_token": "{{ csrf_token() }}"
+                                    },
+                                    url: "articles/"+id,
+                                    success: function (data) {
+                                        if(data.status == 'ok'){
+                                            oTable.ajax.reload();
+                                            $('#myModal').modal('toggle');
+                                        }
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                });
+                            } else if($(target).hasClass("edit")){
+                                debugger;
+                            }
+                        });
                     }
-                });;
+                });
             });
 
         </script>

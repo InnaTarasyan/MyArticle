@@ -15,4 +15,4 @@
 Route::get('/', ['uses'=>'ArticleController@datatable']);
 Route::get('/getposts', ['as'=>'datatable.getposts','uses'=>'ArticleController@getPosts']);
 
-Route::resource('article', 'ArticleController');
+Route::resource('articles', 'ArticleController');

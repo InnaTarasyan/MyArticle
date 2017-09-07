@@ -56,12 +56,27 @@ class ArticleController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * @param  Request  $request
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $status = 'fail';
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'main_image' => $request->main_image,
+            'url' => $request->url,
+            'data' => $request->data
+        ];
+
+        $article = Article::create($data);
+        if ($article->exists){
+            $status = 'ok';
+        }
+
+        return response()->json(['status' => $status]);
+
     }
 
     /**

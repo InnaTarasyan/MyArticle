@@ -67,12 +67,12 @@
                         var id = target.id;
 
 
-                        if($(target).hasClass("edit")){
-                            var title =  $(e.relatedTarget).data('article-title');
-                            var description =  $(e.relatedTarget).data('article-description');
-                            var main_image =  $(e.relatedTarget).data('article-main_image');
-                            var data =  $(e.relatedTarget).data('article-data');
-                            var url =  $(e.relatedTarget).data('article-url');
+                        if($(target).hasClass("edit") || $(target).hasClass("add") ){
+                            var title =  $(e.relatedTarget).data('article-title') || '';
+                            var description =  $(e.relatedTarget).data('article-description') || '';
+                            var main_image =  $(e.relatedTarget).data('article-main_image') || '';
+                            var data =  $(e.relatedTarget).data('article-data') || '';
+                            var url =  $(e.relatedTarget).data('article-url') || '';
 
                             var text = ' <div class="editform">' +
                                 ' <div class="form-group editform">\n' +
@@ -155,6 +155,38 @@
                                     }
                                 });
 
+                            }  else if($(target).hasClass("add")) {
+
+                                var new_title = $('#title').val();
+                                var new_description = $('#description').val();
+                                var new_main_image = $('#main_image').val();
+                                var new_data = $('#data').val();
+                                var new_url = $('#url').val();
+
+
+                                $.ajax({
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        id: id,
+                                        title: new_title,
+                                        description: new_description,
+                                        main_image: new_main_image,
+                                        data: new_data,
+                                        url: new_url,
+                                        "_token": "{{ csrf_token() }}"
+                                    },
+                                    url: "articles",
+                                    success: function (data) {
+                                        if(data.status == 'ok'){
+                                            oTable.ajax.reload();
+                                            $('#delModal').modal('toggle');
+                                        }
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                });
                             }
                         });
                     }

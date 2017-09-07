@@ -87,7 +87,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Update the specified user.
+     * Update the specified article
      *
      * @param  Request  $request
      * @param  string  $id
@@ -96,17 +96,11 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
        $status = 'fail';
-       $id = $request->id;
-       $title = $request->title;
-       $description = $request->description;
-       $main_image = $request->main_image;
-       $url = $request->url;
-       $data = $request->data;
 
-        $article = Article::where('id', $id)->first();
+        $article = Article::where('id', $request->id)->first();
         if($article) {
             $article
-                ->update(['title' => $title, 'description' => $description, 'main_image' => $main_image, 'url' => $url, 'data' => $data]);
+                ->update(['title' => $request->title, 'description' => $request->description, 'main_image' => $request->main_image, 'url' => $request->url, 'data' => $request->data]);
             $status = 'ok';
         }
 

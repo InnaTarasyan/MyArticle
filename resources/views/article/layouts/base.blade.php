@@ -53,9 +53,18 @@
                         {data: 'main_image', name: 'main_image'},
                         {data: 'data', name: 'data'},
                         {data: 'url', name: 'url'},
-                        {data: 'action', name: 'action'},
-                    ]
+                        {data: 'action', name: 'action'}
+                    ],
+                    "columnDefs" : [{
+                        "targets" : 3 ,
+                        "data": "main_image",
+                        "render" : function ( url, type, full) {
+                           return  '<img src="http://www.tert.am/news_images/826/2477835_1/8e32f749936471e696b1802b2d391fd7_3131.jpg" alt="" width="96" height="63">'
+                        }}],
+                    "pageLength": 5
                 });
+
+
 
                 $('#delModal').on('hidden.bs.modal', function(event) {
                     $( ".editform" ).remove();

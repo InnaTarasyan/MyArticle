@@ -6,6 +6,8 @@ use App\Article;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables as Datatables;
 use DB;
+use Image;
+use Illuminate\Support\Facades\File;
 
 class ArticleController extends Controller
 {
@@ -16,6 +18,10 @@ class ArticleController extends Controller
      */
     public function datatable()
     {
+//        $img = Image::make('http://www.tert.am/news_images/826/2477835_1/8e32f749936471e696b1802b2d391fd7_3131.jpg');
+//        $path= storage_path('article/c.jpg');
+//        File::isDirectory($path) or  File::makeDirectory(storage_path('article/'), 0777, true, true);
+//        $img->save($path);
         return view('article.index');
     }
 

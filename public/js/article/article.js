@@ -70,19 +70,27 @@ Article.prototype.dialog = function (title, description, main_image, data, url) 
 
 Article.prototype.add = function (id, title, description, main_image, data, url){
 
+    var uploadedFile = $( '#main_image_file' )[0].files[0];
+
+    var fd = new FormData();
+    fd.append('id', id);
+    fd.append('file', uploadedFile);
+    fd.append('title', title),
+    fd.append('description', description);
+    fd.append('data', data);
+    fd.append('url', url);
+    fd.append('_token', $('#mytoken').val());
+    if(uploadedFile){
+        fd.append('main_image', uploadedFile.name);
+    }
+
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        data: {
-            id: id,
-            title: title,
-            description: description,
-            main_image: main_image,
-            data: data,
-            url: url,
-            "_token": $('#mytoken').val()
-        },
+        data: fd,
         url: "articles",
+        processData: false,
+        contentType: false,
         success: function (data) {
             if(data.status == 'ok'){
                 oTable.ajax.reload();
@@ -154,8 +162,6 @@ Article.prototype.delete= function(id){
 Article.prototype.update = function (id, title, description, data, url) {
     var uploadedFile = $( '#main_image_file' )[0].files[0];
 
-
-    debugger;
     var fd = new FormData();
     fd.append('file', uploadedFile);
     fd.append('id', id);
@@ -257,11 +263,7 @@ Article.prototype.bindEvents = function() {
                     var new_data = $('#data').val();
                     var new_url = $('#url').val();
 
-                    debugger;
-
-                    // self.update(id, new_title, new_description, new_main_image, new_data, new_url);
                     self.update(id, new_title, new_description,  new_data, new_url);
-
 
 
                 }  else if($(target).hasClass("add")) {

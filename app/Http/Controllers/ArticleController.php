@@ -89,6 +89,16 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $status = 'fail';
+        $file = $request->file('file');
+
+        if($file){
+            $data['main_image'] = $request->main_image;
+            $img = Image::make($file->getRealPath());
+            $path= public_path('/img/'.$request->main_image);
+            File::isDirectory($path) or  File::makeDirectory(asset('img/'), 0777, true, true);
+            $img->save($path);
+        }
+
         $data = [
             'title' => $request->title,
             'description' => $request->description,

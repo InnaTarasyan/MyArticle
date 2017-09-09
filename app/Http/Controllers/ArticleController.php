@@ -132,7 +132,7 @@ class ArticleController extends Controller
             $status = 'ok';
             $data['title'] = $article->title;
             $data['description'] = $article->description;
-            $data['main_image'] = $article->main_image;
+            $data['main_image'] = asset('img/'.substr($article->main_image, -11));
             $data['data'] = $article->data;
             $data['url'] = $article->url;
         }
@@ -149,6 +149,13 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         $status = 'fail';
+
+        $file = $request->file('file');
+        $img = Image::make($file->getRealPath());
+        $path= public_path('/img/'.$request->main_image);
+        File::isDirectory($path) or  File::makeDirectory(asset('img/'), 0777, true, true);
+        $img->save($path);
+
 
         $article = Article::where('id', $request->id)->first();
         if($article) {

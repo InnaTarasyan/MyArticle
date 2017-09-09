@@ -49,10 +49,12 @@ Article.prototype.dialog = function (title, description, main_image, data, url) 
         '    <label for="description">Description:</label>\n' +
         '    <textarea  class="form-control" id="description" rows="4" cols="4" >'+ description + '</textarea>\n' +
         '  </div>\n' +
-        ' <div class="form-group editform">\n' +
+        ' <div class="form-group editform row">\n' +
+        ' <div class="col-md-6">'+
         '    <label for="main_image">Main Image:</label>\n' +
-        '    <input  class="form-control" id="main_image" value='+ main_image +'>\n' +
-        // '    <img  class="form-control" id="main_image" src="storage/article/a.jpg"/>\n' +
+        '    <img  id="main_image" src="' + main_image + '" width="180" height="120" />\n' +
+        ' </div>'+
+        ' <input type="file" id ="main_image_file" name="main_image_file" class="col-md-6"></input>\n'+
         '  </div>\n' +
         ' <div class="form-group editform">\n' +
         '    <label for="data">Data:</label>\n' +
@@ -150,19 +152,27 @@ Article.prototype.delete= function(id){
 
 
 Article.prototype.update = function (id, title, description, main_image, data, url) {
+    var uploadedFile = $( '#main_image_file' )[0].files[0];
+
+
+    var fd = new FormData();
+    fd.append('file', uploadedFile);
+    fd.append('id', id);
+    fd.append('title', title);
+    fd.append('description', description);
+    fd.append('data', data);
+    fd.append('main_image', uploadedFile.name);
+    fd.append('url', url);
+    fd.append('_method', 'PATCH');
+    fd.append('_token', $('#mytoken').val() );
+
+
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        data: {
-            id: id,
-            title: title,
-            description: description,
-            main_image: main_image,
-            data: data,
-            url: url,
-            _method: 'PATCH',
-            "_token": $('#mytoken').val()
-        },
+        processData: false,
+        contentType: false,
+        data: fd,
         url: "articles/"+id,
         success: function (data) {
             if(data.status == 'ok'){
@@ -177,7 +187,25 @@ Article.prototype.update = function (id, title, description, main_image, data, u
 };
 
 Article.prototype.bindEvents = function() {
-    var self = this;
+
+    $(document).on('change', 'input[name=main_image_file]' , function(evt) {
+        var self = this;
+        var input = this;
+        var url = $(this).val();
+        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg"))
+        {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#main_image').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+       });
+
+
     $('#delModal').on('hidden.bs.modal', function(event) {
         $( ".editform" ).remove();
     });

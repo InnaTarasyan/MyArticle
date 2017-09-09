@@ -20,7 +20,7 @@ Article.prototype.init = function () {
             "targets" : 3 ,
             "data": "main_image",
             "render" : function ( url, type, full) {
-                return  '<img src="' + full.main_image + '" alt="" width="96" height="63">'
+                 return  '<img src="' + full.main_image + '" alt="" width="96" height="63">'
             }},
             { "width": "2%", "targets": 0 },
             { "width": "20%", "targets": 1 },
@@ -52,6 +52,7 @@ Article.prototype.dialog = function (title, description, main_image, data, url) 
         ' <div class="form-group editform">\n' +
         '    <label for="main_image">Main Image:</label>\n' +
         '    <input  class="form-control" id="main_image" value='+ main_image +'>\n' +
+        // '    <img  class="form-control" id="main_image" src="storage/article/a.jpg"/>\n' +
         '  </div>\n' +
         ' <div class="form-group editform">\n' +
         '    <label for="data">Data:</label>\n' +

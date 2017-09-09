@@ -29,7 +29,7 @@ class GrabSite
                  $data = [];
 
                  // url of article
-                 $artUrl = $hrefs[17]->nodeValue;
+                 $artUrl = $hrefs[37]->nodeValue;
 
                  $data['url']= $artUrl;
                  $artHtml = file_get_contents($artUrl);
@@ -55,10 +55,10 @@ class GrabSite
                  // article image
                  $imagePath = $artXpath->query('//div[@class="i-content"]//img/@src');
                  $image = $imagePath[0]->nodeValue;
-                 $data['main_image'] = $image;
                  $img = Image::make($image);
-                 $path= storage_path('article/'.substr($artUrl, -7).'.jpg');
-                 File::isDirectory($path) or  File::makeDirectory(storage_path('article/'), 0777, true, true);
+                 $path= public_path('/img/'.substr($artUrl, -7).'.jpg');
+                 $data['main_image'] = $path;
+                 File::isDirectory($path) or  File::makeDirectory(asset('img/'), 0777, true, true);
                  $img->save($path);
 
 

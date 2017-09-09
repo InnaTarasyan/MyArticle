@@ -40,6 +40,9 @@ class ArticleController extends Controller
                 else
                     return $article->title;
             })
+            ->editColumn('main_image', function ($article) {
+                return asset('img/'.substr($article->main_image, -11));
+             })
             ->editColumn('description', function($article) {
                 if(strlen($article->description)  > 50)
                    return mb_substr($article->description,0,50).'...';

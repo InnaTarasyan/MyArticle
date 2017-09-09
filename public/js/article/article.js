@@ -20,7 +20,6 @@ Article.prototype.init = function () {
             "targets" : 3 ,
             "data": "main_image",
             "render" : function ( url, type, full) {
-                debugger;
                 return  '<img src="' + full.main_image + '" alt="" width="96" height="63">'
             }},
             { "width": "2%", "targets": 0 },
@@ -30,6 +29,10 @@ Article.prototype.init = function () {
             { "width": "8%", "targets": 4 },
             { "width": "10%", "targets": 5 }
             ],
+
+        "fnCreatedRow": function (row, data, index) {
+            $('td', row).eq(0).html(index + 1);
+        },
         "pageLength": 5
     });
 
@@ -182,8 +185,6 @@ Article.prototype.bindEvents = function() {
         if(e.relatedTarget != undefined){
             var target = e.relatedTarget;
             var id = target.id;
-
-
 
             if($(target).hasClass("edit")  ){
 

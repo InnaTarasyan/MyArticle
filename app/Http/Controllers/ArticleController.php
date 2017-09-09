@@ -10,6 +10,7 @@ use Image;
 use Illuminate\Support\Facades\File;
 use GrabSite;
 
+
 class ArticleController extends Controller
 {
     /**
@@ -199,8 +200,9 @@ class ArticleController extends Controller
         $status = 'fail';
         $article = Article::where('id', $id)->first();
         if($article){
-            $article->delete();
-            $status = 'ok';
+              File::delete('img/' . $article->main_image);
+              $article->delete();
+              $status = 'ok';
         }
         return response()->json(['status' => $status]);
     }

@@ -8,6 +8,7 @@
 
 use App\Article;
 
+
 class GrabSite
 {
     public function getData(){
@@ -29,7 +30,7 @@ class GrabSite
                  $data = [];
 
                  // url of article
-                 $artUrl = $hrefs[37]->nodeValue;
+                 $artUrl = $hrefs[44]->nodeValue;
 
                  $data['url']= $artUrl;
                  $artHtml = file_get_contents($artUrl);
@@ -46,10 +47,9 @@ class GrabSite
                  // article date
                  $datePath = $artXpath->query('//p[@class="n-d"]');
                  $date = $datePath[0]->nodeValue ;
-                 $data['data'] = $date;
-                 $time =  substr($data['data'], 0,5);
-                 $dateT =  substr($data['data'],-8,10);
-                 $data['data'] = $dateT.' : '.$time;
+                 $time =  substr($date, 0,5);
+                 $dateT = substr($date,-8,10);
+                 $data['data'] = $dateT.' '.$time;
 
 
                  // article image

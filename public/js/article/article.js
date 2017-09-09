@@ -58,7 +58,7 @@ Article.prototype.dialog = function (title, description, main_image, data, url) 
         '  </div>\n' +
         ' <div class="form-group editform">\n' +
         '    <label for="data">Data:</label>\n' +
-        '    <input  class="form-control" id="data" value='+ data +'>\n' +
+        '    <input  type="date" class="form-control" id="data" value='+ data +'>\n' +
         '  </div>\n' +
         ' <div class="form-group editform">\n' +
         '    <label for="url">Url:</label>\n' +

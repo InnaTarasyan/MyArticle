@@ -189,7 +189,7 @@ Article.prototype.update = function (id, title, description, main_image, data, u
 Article.prototype.bindEvents = function() {
 
     $(document).on('change', 'input[name=main_image_file]' , function(evt) {
-        var self = this;
+        
         var input = this;
         var url = $(this).val();
         var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
@@ -203,9 +203,9 @@ Article.prototype.bindEvents = function() {
             reader.readAsDataURL(input.files[0]);
         }
 
-       });
+    });
 
-
+    var self = this;
     $('#delModal').on('hidden.bs.modal', function(event) {
         $( ".editform" ).remove();
     });

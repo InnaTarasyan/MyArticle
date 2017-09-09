@@ -151,17 +151,21 @@ Article.prototype.delete= function(id){
 };
 
 
-Article.prototype.update = function (id, title, description, main_image, data, url) {
+Article.prototype.update = function (id, title, description, data, url) {
     var uploadedFile = $( '#main_image_file' )[0].files[0];
 
 
+    debugger;
     var fd = new FormData();
     fd.append('file', uploadedFile);
     fd.append('id', id);
     fd.append('title', title);
     fd.append('description', description);
     fd.append('data', data);
-    fd.append('main_image', uploadedFile.name);
+    if(uploadedFile){
+        fd.append('main_image', uploadedFile.name);
+    }
+
     fd.append('url', url);
     fd.append('_method', 'PATCH');
     fd.append('_token', $('#mytoken').val() );
@@ -189,7 +193,7 @@ Article.prototype.update = function (id, title, description, main_image, data, u
 Article.prototype.bindEvents = function() {
 
     $(document).on('change', 'input[name=main_image_file]' , function(evt) {
-        
+
         var input = this;
         var url = $(this).val();
         var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
@@ -229,7 +233,7 @@ Article.prototype.bindEvents = function() {
 
                 var title = '';
                 var description = '';
-                var main_image = ''
+                var main_image = $('#publicpath').val() + '/default.jpg';
                 var url = '';
                 var data = '';
 
@@ -249,11 +253,15 @@ Article.prototype.bindEvents = function() {
                 } else if($(target).hasClass("edit")){
                     var new_title = $('#title').val();
                     var new_description = $('#description').val();
-                    var new_main_image = $('#main_image').val();
+                    //var new_main_image = $('#main_image')[0].src;
                     var new_data = $('#data').val();
                     var new_url = $('#url').val();
 
-                    self.update(id, new_title, new_description, new_main_image, new_data, new_url);
+                    debugger;
+
+                    // self.update(id, new_title, new_description, new_main_image, new_data, new_url);
+                    self.update(id, new_title, new_description,  new_data, new_url);
+
 
 
                 }  else if($(target).hasClass("add")) {

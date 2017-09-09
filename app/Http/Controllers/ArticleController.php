@@ -151,16 +151,27 @@ class ArticleController extends Controller
         $status = 'fail';
 
         $file = $request->file('file');
-        $img = Image::make($file->getRealPath());
-        $path= public_path('/img/'.$request->main_image);
-        File::isDirectory($path) or  File::makeDirectory(asset('img/'), 0777, true, true);
-        $img->save($path);
+
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'url' => $request->url,
+            'data' => $request->data
+        ];
+
+        if($file){
+            $data['main_image'] = $request->main_image;
+            $img = Image::make($file->getRealPath());
+            $path= public_path('/img/'.$request->main_image);
+            File::isDirectory($path) or  File::makeDirectory(asset('img/'), 0777, true, true);
+            $img->save($path);
+        }
 
 
         $article = Article::where('id', $request->id)->first();
         if($article) {
             $article
-                ->update(['title' => $request->title, 'description' => $request->description, 'main_image' => $request->main_image, 'url' => $request->url, 'data' => $request->data]);
+                ->update($data);
             $status = 'ok';
         }
 

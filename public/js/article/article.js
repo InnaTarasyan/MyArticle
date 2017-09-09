@@ -20,8 +20,16 @@ Article.prototype.init = function () {
             "targets" : 3 ,
             "data": "main_image",
             "render" : function ( url, type, full) {
-                return  '<img src="http://www.tert.am/news_images/826/2477835_1/8e32f749936471e696b1802b2d391fd7_3131.jpg" alt="" width="96" height="63">'
-            }}],
+                debugger;
+                return  '<img src="' + full.main_image + '" alt="" width="96" height="63">'
+            }},
+            { "width": "2%", "targets": 0 },
+            { "width": "20%", "targets": 1 },
+            { "width": "30%", "targets": 2 },
+            { "width": "10%", "targets": 3 },
+            { "width": "8%", "targets": 4 },
+            { "width": "10%", "targets": 5 }
+            ],
         "pageLength": 5
     });
 
@@ -32,11 +40,11 @@ Article.prototype.dialog = function (title, description, main_image, data, url) 
     return ' <div class="editform">' +
         ' <div class="form-group editform">\n' +
         '    <label for="title">Title:</label>\n' +
-        '    <input  class="form-control" id="title" value='+ title +'>\n' +
+        '    <textarea  class="form-control" id="title" rows="2" cols="2" >'+ title + '</textarea>\n' +
         '  </div>\n' +
         ' <div class="form-group editform">\n' +
         '    <label for="description">Description:</label>\n' +
-        '    <textarea  class="form-control" id="description" rows="2" cols="2" >'+ description + '</textarea>\n' +
+        '    <textarea  class="form-control" id="description" rows="4" cols="4" >'+ description + '</textarea>\n' +
         '  </div>\n' +
         ' <div class="form-group editform">\n' +
         '    <label for="main_image">Main Image:</label>\n' +

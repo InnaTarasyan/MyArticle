@@ -34,6 +34,24 @@ class ArticleController extends Controller
     {
         $articles = DB::table('articles')->select('*');
         return Datatables::of($articles)
+            ->editColumn('title', function($article) {
+                if(strlen($article->title)  > 70)
+                    return substr($article->title,0,70).'...';
+                else
+                    return $article->title;
+            })
+            ->editColumn('description', function($article) {
+                if(strlen($article->description)  > 90)
+                   return substr($article->description,0,90).'...';
+                else
+                    return $article->description;
+            })
+            ->editColumn('url', function($article) {
+                if(strlen($article->url)  > 20)
+                    return substr($article->url,0,20).'...';
+                else
+                    return $article->url;
+            })
             ->addColumn('action', function($article) {
                 return '<a id="' . $article->id . '" data-target="#delModal" href="#delModal" role="button" class="btn btn-large btn-primary edit" data-toggle="modal" >Edit</a> <a href="#delModal" id="' . $article->id . '" data-target="#delModal" role="button" class="btn btn-large btn-primary delete" data-toggle="modal" >Delete</a>';
             })

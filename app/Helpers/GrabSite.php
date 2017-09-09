@@ -29,7 +29,7 @@ class GrabSite
                  $data = [];
 
                  // url of article
-                 $artUrl = $hrefs[8]->nodeValue;
+                 $artUrl = $hrefs[17]->nodeValue;
 
                  $data['url']= $artUrl;
                  $artHtml = file_get_contents($artUrl);
@@ -47,6 +47,10 @@ class GrabSite
                  $datePath = $artXpath->query('//p[@class="n-d"]');
                  $date = $datePath[0]->nodeValue ;
                  $data['data'] = $date;
+                 $time =  substr($data['data'], 0,5);
+                 $dateT =  substr($data['data'],-8,10);
+                 $data['data'] = $dateT.' : '.$time;
+
 
                  // article image
                  $imagePath = $artXpath->query('//div[@class="i-content"]//img/@src');

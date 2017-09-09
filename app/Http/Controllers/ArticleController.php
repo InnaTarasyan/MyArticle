@@ -35,20 +35,20 @@ class ArticleController extends Controller
         $articles = DB::table('articles')->select('*');
         return Datatables::of($articles)
             ->editColumn('title', function($article) {
-                if(strlen($article->title)  > 60)
-                    return substr($article->title,0,60).'...';
+                if(strlen($article->title)  > 50)
+                    return  mb_substr($article->title, 0, 50).'...';
                 else
                     return $article->title;
             })
             ->editColumn('description', function($article) {
-                if(strlen($article->description)  > 60)
-                   return substr($article->description,0,60).'...';
+                if(strlen($article->description)  > 50)
+                   return mb_substr($article->description,0,50).'...';
                 else
                     return $article->description;
             })
             ->editColumn('url', function($article) {
                 if(strlen($article->url)  > 20)
-                    return substr($article->url,0,20).'...';
+                    return mb_substr($article->url,0,20).'...';
                 else
                     return $article->url;
             })

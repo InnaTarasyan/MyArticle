@@ -11,7 +11,7 @@ class GrabSite
     public function getData(){
 
         // This is going to be a crone job !!!
-        
+
         $url = "http://www.tert.am/";
         $html = file_get_contents( $url );
 
@@ -21,62 +21,52 @@ class GrabSite
 
         $hrefs= $xpath->query( '//p[@class="today-title"]//a/@href' );
 
+
         if( $hrefs ) {
 
-                // url of article
-                $artUrl = $hrefs[0]->nodeValue;
 
-                echo $artUrl.'</br>';
-                $artHtml = file_get_contents( $artUrl );
+                 // url of article
+                 $artUrl = $hrefs[0]->nodeValue;
 
-                $artDom = new DOMDocument();
-                @$artDom->loadHTML( $artHtml );
-                $artXpath = new DOMXPath( $artDom);
+                 echo $artUrl . '</br>';
+                 $artHtml = file_get_contents($artUrl);
 
-                $h= $artXpath->query( '//div[@id="item"]//h1' );
+                 $artDom = new DOMDocument();
+                 @$artDom->loadHTML($artHtml);
+                 $artXpath = new DOMXPath($artDom);
 
-                //title of article
-                if($h){
-                    foreach ($h as $ref) {
-                        echo $ref->nodeValue.'<br/>';
-                    }
-                }
-
-                //date
-                $h= $artXpath->query( '//p[@class="n-d"]' );
-                if($h){
-                    foreach ($h as $ref) {
-                        echo $ref->nodeValue.'<br/>';
-                    }
-                }
-
-                //image
-                $h= $artXpath->query( '//div[@class="i-content"]//img/@src' );
-
-                if($h){
-                    foreach ($h as $ref) {
-                        echo $ref->nodeValue.'<br/>';
-                        $img = Image::make($ref->nodeValue);
-                        $path= storage_path('article/'.substr($artUrl, -7).'.jpg');
-                        File::isDirectory($path) or  File::makeDirectory(storage_path('article/'), 0777, true, true);
-                        $img->save($path);
-                    }
-                }
+                 $titlePath = $artXpath->query('//div[@id="item"]//h1');
+                 $title = $titlePath[0]->nodeValue . '<br/>';
+                 echo $title;
 
 
-            // article text
-            $h= $artXpath->query( '//div[@class="i-content"]//p' );
+                 $datePath = $artXpath->query('//p[@class="n-d"]');
+                 $date = $datePath[0]->nodeValue . '<br/>';
+                 echo $date;
 
-            if($h){
-                foreach ($h as $ref) {
-                    echo $ref->nodeValue.'<br/>';
 
-                }
-            }
+                 $imagePath = $artXpath->query('//div[@class="i-content"]//img/@src');
+                 $image = $imagePath[0]->nodeValue;
+                 echo $image . '<br/>';
+//                $path= storage_path('article/'.substr($artUrl, -7).'.jpg');
+//                File::isDirectory($path) or  File::makeDirectory(storage_path('article/'), 0777, true, true);
+//                $image->save($path);
+
+
+                 // article text
+                 $articleText = $artXpath->query('//div[@class="i-content"]//p');
+
+                 if ($articleText) {
+                     foreach ($articleText as $ref) {
+                         echo $ref->nodeValue . '<br/>';
+
+                     }
+                 }
+             }
 
 
         }
 
 
-    }
+
 }

@@ -35,7 +35,7 @@ class ArticleController extends Controller
         $articles = DB::table('articles')->select('*');
         return Datatables::of($articles)
             ->addColumn('action', function($article) {
-                return '<a id="' . $article->id . '" data-target="#delModal" href="#delModal" role="button" class="btn btn-large btn-primary edit" data-toggle="modal" data-article-title="'.$article->title.'" data-article-description="'.$article->description.'" data-article-main_image="'.$article->main_image.'" data-article-data="'.$article->data.'" data-article-url="'.$article->url.'">Edit</a> <a href="#delModal" id="' . $article->id . '" data-target="#delModal" role="button" class="btn btn-large btn-primary delete" data-toggle="modal" >Delete</a>';
+                return '<a id="' . $article->id . '" data-target="#delModal" href="#delModal" role="button" class="btn btn-large btn-primary edit" data-toggle="modal" >Edit</a> <a href="#delModal" id="' . $article->id . '" data-target="#delModal" role="button" class="btn btn-large btn-primary delete" data-toggle="modal" >Delete</a>';
             })
             ->make(true);
     }
@@ -104,7 +104,18 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $status = 'fail';
+        $data = [];
+        $article = Article::where('id' ,$id)->first();
+        if($article){
+            $status = 'ok';
+            $data['title'] = $article->title;
+            $data['description'] = $article->description;
+            $data['main_image'] = $article->main_image;
+            $data['data'] = $article->data;
+            $data['url'] = $article->url;
+        }
+        return response()->json(['status' => $status, 'data' => $data]);
     }
 
     /**
@@ -116,7 +127,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $status = 'fail';
+        $status = 'fail';
 
         $article = Article::where('id', $request->id)->first();
         if($article) {

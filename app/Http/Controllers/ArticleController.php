@@ -9,6 +9,7 @@ use DB;
 use Image;
 use Illuminate\Support\Facades\File;
 use GrabSite;
+use App\Jobs;
 
 
 class ArticleController extends Controller
@@ -20,9 +21,7 @@ class ArticleController extends Controller
      */
     public function datatable()
     {
-//        $sitedata = new GrabSite();
-//        $sitedata->populate();
-
+        $this->dispatch(new Jobs\GrabTertSite());
         return view('article.index');
     }
 
@@ -33,7 +32,7 @@ class ArticleController extends Controller
      */
     public function getPosts()
     {
-        $articles = DB::table('articles')->select('*');
+        $articles = Article::all();
         return Datatables::of($articles)
             ->editColumn('title', function($article) {
                 if(strlen($article->title)  > 50)

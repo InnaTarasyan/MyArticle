@@ -89,11 +89,11 @@ class GrabSite
             // article image
             $imagePath = $artXpath->query('//div[@class="i-content"]//img/@src');
             $image = $imagePath[0]->nodeValue;
-//            $img = Image::make($image);
-//            $path = public_path('/img/' . substr($artUrl, -7) . '.jpg');
-//            $data['main_image'] = $path;
-//            File::isDirectory($path) or File::makeDirectory(asset('img/'), 0777, true, true);
-//            $img->save($path);
+            $img = Image::make($image);
+            $path = public_path('/img/' . substr($artUrl, -7) . '.jpg');
+            $data['main_image'] = $path;
+            File::isDirectory($path) or File::makeDirectory(asset('img/'), 0777, true, true);
+            $img->save($path);
 
 
             // article text
@@ -108,7 +108,7 @@ class GrabSite
                 $data['description'] = $desc;
             }
 
-            //Article::create($data);
+            Article::create($data);
 
 
         }

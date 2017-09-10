@@ -7,6 +7,7 @@
  */
 
 use App\Article;
+use Carbon\Carbon;
 
 
 class GrabSite
@@ -23,14 +24,21 @@ class GrabSite
     protected function getData()
     {
         $urls = array();
-        // Start date
-        $date = '2016/02/01';
+        $artUrls = array();
+
         // End date
-        $end_date = '2016/05/01';
+        $end_date = Carbon::now()->format('Y/m/d');
+
+//        // Start date
+//        $date = Carbon::now()->subMonth(4)->format('Y/m/d');
+
+
+        // Start date
+        $date = Carbon::now()->subDay(1)->format('Y/m/d');
 
         $base_url = "http://www.tert.am/am/news/";
 
-        while (strtotime($date) <= strtotime($end_date)) {
+        while (strtotime($end_date) >= strtotime($date)) {
             $urls[] = $base_url . $date;
             $date = date("Y/m/d", strtotime("+1 day", strtotime($date)));
         }
@@ -44,7 +52,7 @@ class GrabSite
                 if ($count < 1000) {
                     foreach ($hrefs as $ref) {
                         if ($count < 1000) {
-                            $urls[] = $ref->nodeValue;
+                            $artUrls[] = $ref->nodeValue;
                             $count++;
                         } else {
                             break;
@@ -58,23 +66,23 @@ class GrabSite
 
         }
 
-        return $urls;
+        return $artUrls;
 
     }
 
     public function populate(){
         $hrefs = $this->getData();
 
-        dd($hrefs);
 
         foreach ($hrefs as $href) {
 
             $data = [];
 
             // url of article
-            $artUrl = $href->nodeValue;
+            $artUrl = $href;
 
             $data['url'] = $artUrl;
+            $data['url'] = $href;
             $artHtml = file_get_contents($artUrl);
 
             $artDom = new DOMDocument();

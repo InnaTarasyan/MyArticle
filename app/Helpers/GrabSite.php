@@ -11,7 +11,6 @@ use App\Article;
 
 class GrabSite
 {
-    protected $urls = array();
     protected function grab($url){
 
         $html = file_get_contents( $url );
@@ -21,13 +20,13 @@ class GrabSite
         $hrefs= $xpath->query( '//div[@class="news-blocks"]/a[1]/@href');
         return $hrefs;
     }
-    public function getData()
+    protected function getData()
     {
-
+        $urls = array();
         // Start date
-        $date = '2016/01/01';
+        $date = '2016/02/01';
         // End date
-        $end_date = '2016/01/01';
+        $end_date = '2016/05/01';
 
         $base_url = "http://www.tert.am/am/news/";
 
@@ -45,7 +44,7 @@ class GrabSite
                 if ($count < 1000) {
                     foreach ($hrefs as $ref) {
                         if ($count < 1000) {
-                            //echo $ref->nodeValue . '<br/>';
+                            $urls[] = $ref->nodeValue;
                             $count++;
                         } else {
                             break;
@@ -58,6 +57,15 @@ class GrabSite
 
 
         }
+
+        return $urls;
+
+    }
+
+    public function populate(){
+        $hrefs = $this->getData();
+
+        dd($hrefs);
 
         foreach ($hrefs as $href) {
 
@@ -110,8 +118,8 @@ class GrabSite
 
             Article::create($data);
 
-
         }
     }
+
 
 }

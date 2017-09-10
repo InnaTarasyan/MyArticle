@@ -20,8 +20,8 @@ class ArticleController extends Controller
      */
     public function datatable()
     {
-//        $sitedata = new GrabSite();
-//        $sitedata->getData();
+        $sitedata = new GrabSite();
+        $sitedata->populate();
 
         return view('article.index');
     }

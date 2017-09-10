@@ -3,7 +3,7 @@
 Prerequisits
 1) Ensure you have php version >= 7.0.0 <br/>
 
-Run the site
+Run the site<br/>
 After you have cloned or downloaded the project, navigate to the corresponding directory<br/>
 
 1) Install all the dependencies as specified in the composer.lock file (in your terminal)<br/>

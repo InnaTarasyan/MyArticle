@@ -21,7 +21,7 @@ class ArticleController extends Controller
      */
     public function datatable()
     {
-       // $this->dispatch(new Jobs\GrabTertSite());
+        $this->dispatch(new Jobs\GrabTertSite());
         return view('article.index');
     }
 

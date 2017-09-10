@@ -29,12 +29,9 @@ class GrabSite
         // End date
         $end_date = Carbon::now()->format('Y/m/d');
 
-//        // Start date
-//        $date = Carbon::now()->subMonth(4)->format('Y/m/d');
-
-
         // Start date
-        $date = Carbon::now()->subDay(1)->format('Y/m/d');
+        $date = Carbon::now()->subMonth(4)->format('Y/m/d');
+
 
         $base_url = "http://www.tert.am/am/news/";
 

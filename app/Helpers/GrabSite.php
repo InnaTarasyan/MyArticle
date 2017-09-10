@@ -70,6 +70,7 @@ class GrabSite
     public function populate(){
         $hrefs = $this->getData();
 
+        $this->clean();
 
         foreach ($hrefs as $href) {
 
@@ -124,6 +125,14 @@ class GrabSite
             Article::create($data);
 
         }
+    }
+
+    protected function clean(){
+        foreach (Article::all() as $article){
+            File::delete($article->main_image);
+        }
+
+        Article::truncate();
     }
 
 

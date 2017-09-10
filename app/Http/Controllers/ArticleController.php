@@ -200,7 +200,7 @@ class ArticleController extends Controller
         $status = 'fail';
         $article = Article::where('id', $id)->first();
         if($article){
-              File::delete('img/' . $article->main_image);
+              File::delete($article->main_image);
               $article->delete();
               $status = 'ok';
         }

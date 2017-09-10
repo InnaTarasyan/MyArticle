@@ -1,7 +1,7 @@
 # MyArticle
 
 Prerequisits
-1) Ensure you have php version >= 7 <br/>
+1) Ensure you have php version >= 7.0.0 <br/>
 
 Run the site
 After you have cloned or downloaded the project, navigate to the corresponding directory<br/>

@@ -79,7 +79,7 @@ Article.prototype.add = function (id, title, description, main_image, data, url)
     fd.append('description', description);
     fd.append('data', data);
     fd.append('url', url);
-    fd.append('_token', $('#mytoken').val());
+    fd.append('_token', $('meta[name="_token"]').attr('content'));
     if(uploadedFile){
         fd.append('main_image', uploadedFile.name);
     }
@@ -112,9 +112,11 @@ Article.prototype.edit = function(id, title, description, main_image, data, url)
         dataType: 'json',
         data: {
             id: id,
-            "_token": $('#mytoken').val()
         },
         url: "articles/" + id + '/edit',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("_token", $('meta[name="_token"]').attr('content'));
+        },
         success: function (res) {
             if(data.status = 'ok'){
                 title = res.data.title;
@@ -141,10 +143,12 @@ Article.prototype.delete= function(id){
         dataType: 'json',
         data: {
             id: id,
-            _method: 'DELETE',
-            "_token": $('#mytoken').val()
+            _method: 'DELETE'
         },
         url: "articles/"+id,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("_token", $('meta[name="_token"]').attr('content'));
+        },
         success: function (data) {
             if(data.status == 'ok'){
                 oTable.ajax.reload();
@@ -174,7 +178,7 @@ Article.prototype.update = function (id, title, description, data, url) {
 
     fd.append('url', url);
     fd.append('_method', 'PATCH');
-    fd.append('_token', $('#mytoken').val() );
+    fd.append('_token', $('meta[name="_token"]').attr('content'));
 
 
     $.ajax({

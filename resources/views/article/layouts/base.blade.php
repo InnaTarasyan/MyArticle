@@ -12,7 +12,6 @@
         <div class="container" style="padding-top:5%">
             @yield('content')
         </div>
-        <input type="hidden" id="mytoken" value="{{ csrf_token() }}">
         <input type="hidden" id="myroute" value="{{ route('datatable.getposts') }}">
         <input type="hidden" id="publicpath" value="{{ asset('img/') }}">
         <!-- Modal HTML -->

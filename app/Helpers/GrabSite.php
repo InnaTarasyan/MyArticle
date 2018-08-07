@@ -96,10 +96,10 @@ class GrabSite
             $datePath = $artXpath->query('//p[@class="n-d"]');
             $date = $datePath[0]->nodeValue;
             $time = substr($date, 0, 5);
-            $dateT = substr($date, -8, 10);
-            $data['data'] = $dateT . ' ' . $time;
+            $dateT = substr($date, -8);
 
 
+            $data['data'] = new DateTime(substr($dateT . ' ' . $time, 10));
             // article image
             $imagePath = $artXpath->query('//div[@class="i-content"]//img/@src');
             $image = $imagePath[0]->nodeValue;

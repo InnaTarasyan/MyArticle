@@ -98,8 +98,7 @@ class GrabSite
             $time = substr($date, 0, 5);
             $dateT = substr($date, -8);
 
-
-            $data['data'] = new DateTime(substr($dateT . ' ' . $time, 10));
+            $data['data'] = DateTime::createFromFormat('d.m.Y', $dateT)->format('y-m-d');
             // article image
             $imagePath = $artXpath->query('//div[@class="i-content"]//img/@src');
             $image = $imagePath[0]->nodeValue;

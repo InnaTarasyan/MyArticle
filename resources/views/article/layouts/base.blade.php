@@ -4,13 +4,40 @@
         <title>Articles</title>
         <meta name="_token" content="{{ csrf_token() }}">
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css">
+        {{--<link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css">--}}
         <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" />
     </head>
     <body>
         <div class="container" style="padding-top:5%">
+
+            <div class="container" style="padding-bottom: 10%;">
+                <div class='col-md-5'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker6' style="z-index: 1">
+                            <input type='text' class="form-control" placeholder="Start Date"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-5'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker7' style="z-index: 1">
+                            <input type='text' class="form-control" placeholder="End Date"/>
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" id="search_btn">Search...</button>
+                </div>
+            </div>
             @yield('content')
         </div>
         <input type="hidden" id="myroute" value="{{ route('datatable.getposts') }}">
@@ -40,9 +67,28 @@
     <footer>
         <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
         <!-- Latest compiled JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker6').datetimepicker({
+                    format: 'YYYY/MM/DD'
+                });
+                $('#datetimepicker7').datetimepicker({
+                    useCurrent: false, //Important! See issue #1075
+                    format: 'YYYY/MM/DD'
+                });
+                $("#datetimepicker6").on("dp.change", function (e) {
+                    $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+                });
+                $("#datetimepicker7").on("dp.change", function (e) {
+                    $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+                });
+            });
+        </script>
         <script src="{{ URL::asset('js/article/article.js')}}"></script>
     </footer>
 </html>

@@ -6,7 +6,17 @@ Article.prototype.init = function () {
     oTable = $('#articles').DataTable({
         "processing": true,
         "serverSide": true,
-        "ajax": $('#myroute').val(),
+        "ajax": {
+            url:  $('#myroute').val(),
+            type: 'POST',
+            data: {
+                _token: $('meta[name="_token"]').attr('content'),
+                // startDate: $("#datetimepicker6").find("input").val(),
+                startDate: $("#datetimepicker6").find("input").val(),
+                endDate: $("#datetimepicker7").find("input").val(),
+                dataType: "JSON"
+            },
+        },
         "columns": [
             {data: 'id', name: 'id'},
             {data: 'title', name: 'title'},
@@ -59,6 +69,7 @@ Article.prototype.init = function () {
             }
         }
     });
+
 
 };
 
@@ -301,7 +312,17 @@ Article.prototype.bindEvents = function() {
         }
     });
 
+    $(document).on('click', '#search_btn', this.filterPosts.bind(this));
+
 };
+
+Article.prototype.filterPosts = function () {
+
+    $('#articles').DataTable().clear().destroy();
+    this.init();
+
+};
+
 
 $(document).ready(function() {
    var article = new Article();

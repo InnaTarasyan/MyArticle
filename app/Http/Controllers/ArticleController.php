@@ -30,9 +30,27 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getPosts()
+    public function getPosts(Request $request)
     {
-        $articles = Article::all();
+        $startDate = $request->get('startDate');
+        $endDate = $request->get('endDate');
+
+        $articles = Article::select('*');
+
+        if($startDate != ''){
+            $articles = $articles->whereDate('data', '>=', $startDate);
+        };
+
+        if($endDate != ''){
+            $articles = $articles->whereDate('data', '<=', $endDate);
+        }
+
+        if($startDate == '' && $endDate == '') {
+            $articles = Article::all();
+        } else {
+            $articles = $articles->get();
+        }
+
         return Datatables::of($articles)
             ->editColumn('title', function($article) {
                 if(strlen($article->title)  > 50)

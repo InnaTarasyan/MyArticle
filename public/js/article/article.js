@@ -20,7 +20,7 @@ Article.prototype.init = function () {
             "targets" : 3 ,
             "data": "main_image",
             "render" : function ( url, type, full) {
-                 return  '<img src="' + full.main_image + '" alt="" width="96" height="63">'
+                 return  '<img class="myImg" src="' + full.main_image + '" alt="" width="96" height="63">'
             }},
             { "width": "2%", "targets": 0 },
             { "width": "20%", "targets": 1 },
@@ -31,10 +31,33 @@ Article.prototype.init = function () {
             ],
 
         "fnCreatedRow": function (row, data, index) {
-            $('td', row).eq(0).html(index + 1);
+            var info = $(this).DataTable().page.info();
+            $('td', row).eq(0).html(info.start + index + 1);
         },
         "pageLength": 5,
-        "order": [[ 4, "desc" ]]
+        "order": [[ 4, "desc" ]],
+        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+            // Get the modal
+            var modal = document.getElementById('myModal');
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+
+            $(nRow.cells[3].firstChild).on("click", function(){
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            });
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+        }
     });
 
 };

@@ -51,13 +51,14 @@ class ArticleController extends Controller
             })
             ->editColumn('url', function($article) {
                 if(strlen($article->url)  > 20)
-                    return mb_substr($article->url,0,20).'...';
+                    return '<a href="'.$article->url.'">'.mb_substr($article->url,0,20).'...'.'</a>';
                 else
-                    return $article->url;
+                    return '<a href="'.$article->url.'">'.$article->url.'</a>';
             })
             ->addColumn('action', function($article) {
                 return '<a id="' . $article->id . '" data-target="#delModal" href="#delModal" role="button" class="btn btn-large btn-primary edit" data-toggle="modal" >Edit</a> <a href="#delModal" id="' . $article->id . '" data-target="#delModal" role="button" class="btn btn-large btn-primary delete" data-toggle="modal" >Delete</a>';
             })
+            ->rawColumns(['url', 'action'])
             ->make(true);
     }
 

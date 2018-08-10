@@ -3,11 +3,9 @@
     <head>
         <title>Articles</title>
         <meta name="_token" content="{{ csrf_token() }}">
-        <!-- Latest compiled and minified CSS -->
-        {{--<link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css">--}}
         <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+        {{--<link rel="stylesheet" href="{{ asset('css/modal.css') }}">--}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" />
     </head>
     <body>
@@ -35,7 +33,7 @@
                     </div>
                 </div>
                 <div>
-                    <button type="button" id="search_btn">Search...</button>
+                    <button type="button" id="search_btn" class="btn btn-primary">Search...</button>
                 </div>
             </div>
             @yield('content')

@@ -105,7 +105,7 @@ Article.prototype.dialog = function (title, description, main_image, data, url) 
 
 Article.prototype.add = function (id, title, description, main_image, data, url){
 
-    var uploadedFile = $( '#main_image_file' )[0].files[0];
+    var uploadedFile = $( '#main_image_file' )[0] && $( '#main_image_file' )[0].files[0];
 
     var fd = new FormData();
     fd.append('id', id);
@@ -129,7 +129,7 @@ Article.prototype.add = function (id, title, description, main_image, data, url)
         success: function (data) {
             if(data.status == 'ok'){
                 oTable.ajax.reload();
-                $('#delModal').modal('toggle');
+                $('#delModal').modal('hide');
             }
         },
         error: function (data) {
@@ -178,7 +178,8 @@ Article.prototype.delete= function(id){
         dataType: 'json',
         data: {
             id: id,
-            _method: 'DELETE'
+            _method: 'DELETE',
+            _token:  $('meta[name="_token"]').attr('content')
         },
         url: "articles/"+id,
         beforeSend: function(xhr) {
@@ -187,7 +188,7 @@ Article.prototype.delete= function(id){
         success: function (data) {
             if(data.status == 'ok'){
                 oTable.ajax.reload();
-                $('#delModal').modal('toggle');
+                $('#delModal').modal('hide');
             }
         },
         error: function (data) {
@@ -199,7 +200,7 @@ Article.prototype.delete= function(id){
 
 
 Article.prototype.update = function (id, title, description, data, url) {
-    var uploadedFile = $( '#main_image_file' )[0].files[0];
+    var uploadedFile = $( '#main_image_file' )[0] && $( '#main_image_file' )[0].files[0];
 
     var fd = new FormData();
     fd.append('file', uploadedFile);
@@ -226,7 +227,7 @@ Article.prototype.update = function (id, title, description, data, url) {
         success: function (data) {
             if(data.status == 'ok'){
                 oTable.ajax.reload();
-                $('#delModal').modal('toggle');
+                $('#delModal').modal('hide');
             }
         },
         error: function (data) {
@@ -265,25 +266,32 @@ Article.prototype.bindEvents = function() {
             var id = target.id;
 
             if($(target).hasClass("edit")  ){
+               if($(target).hasClass("add")){
+                   return;
+               } else {
+                   var title = '';
+                   var description = '';
+                   var main_image = ''
+                   var url = '';
+                   var data = '';
 
-                var title = '';
-                var description = '';
-                var main_image = ''
-                var url = '';
-                var data = '';
-
-                self.edit(id, title, description , main_image, url, data  );
+                   self.edit(id, title, description , main_image, url, data  );
+               }
 
             } else if($(target).hasClass("add")) {
 
-                var title = '';
-                var description = '';
-                var main_image = $('#publicpath').val() + '/default.jpg';
-                var url = '';
-                var data = '';
+                if($(target).hasClass("edit")){
+                    return;
+                } else {
+                    var title = '';
+                    var description = '';
+                    var main_image = $('#publicpath').val() + '/default.jpg';
+                    var url = '';
+                    var data = '';
 
-                var text = self.dialog(title, description, main_image, data, url );
-                $('.modal-body').append(text);
+                    var text = self.dialog(title, description, main_image, data, url );
+                    $('.modal-body').append(text);
+                }
 
 
             }
@@ -292,22 +300,52 @@ Article.prototype.bindEvents = function() {
             }
 
             $(document).on('click', '.save', function(){
+
                 if($(target).hasClass("delete")){
-                    self.delete(id);
+
+                    if($(target).hasClass("add") || $(target).hasClass("edit") ){
+                        return;
+                    } else {
+                        self.delete(id);
+                        $(target).removeClass("delete");
+                        return;
+                    }
+
 
                 } else if($(target).hasClass("edit")){
-                    var new_title = $('#title').val();
-                    var new_description = $('#description').val();
-                    //var new_main_image = $('#main_image')[0].src;
-                    var new_data = $('#data').val();
-                    var new_url = $('#url').val();
 
-                    self.update(id, new_title, new_description,  new_data, new_url);
+                    if($(target).hasClass("add") || $(target).hasClass("delete") ){
+                        return;
+                    } else {
+                        var new_title = $('#title').val();
+                        var new_description = $('#description').val();
+                        //var new_main_image = $('#main_image')[0].src;
+                        var new_data = $('#data').val();
+                        var new_url = $('#url').val();
+
+                        self.update(id, new_title, new_description, new_data, new_url);
+
+                        $(target).removeClass("edit");
+                        $('.add_button').addClass('add');
+                        return;
+                    }
 
 
-                }  else if($(target).hasClass("add")) {
-                    self.add(id, $('#title').val(),$('#description').val(),$('#main_image').val(), $('#data').val(),$('#url').val()  );
+                }  else if($(target).hasClass("add") || $(target).hasClass("delete") ) {
+
+                    if($(target).hasClass("edit")){
+                        return;
+                    } else {
+                        self.add(id, $('#title').val(),$('#description').val(),$('#main_image').val(), $('#data').val(),$('#url').val()  );
+                        $(target).removeClass("add");
+
+                        return;
+                    }
+
+
                 }
+
+
             });
         }
     });

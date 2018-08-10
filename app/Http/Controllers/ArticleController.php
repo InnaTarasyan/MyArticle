@@ -59,7 +59,8 @@ class ArticleController extends Controller
                     return $article->title;
             })
             ->editColumn('main_image', function ($article) {
-                return asset('img/'.substr($article->main_image, -11));
+               // return asset('img/'.substr($article->main_image, -11));
+                return asset($article->main_image);
              })
             ->editColumn('description', function($article) {
                 if(strlen($article->description)  > 50)
@@ -74,7 +75,7 @@ class ArticleController extends Controller
                     return '<a href="'.$article->url.'">'.$article->url.'</a>';
             })
             ->addColumn('action', function($article) {
-                return '<a id="' . $article->id . '" data-target="#delModal" href="#delModal" role="button" class="btn btn-large btn-primary edit" data-toggle="modal" >Edit</a> <a href="#delModal" id="' . $article->id . '" data-target="#delModal" role="button" class="btn btn-large btn-primary delete" data-toggle="modal" >Delete</a>';
+                return '<a id="' . $article->id . '" data-target="#delModal" href="#delModal" role="button" class="btn btn-large btn-primary edit edit_button" data-toggle="modal" >Edit</a> <a href="#delModal" id="' . $article->id . '" data-target="#delModal" role="button" class="btn btn-large btn-danger delete delete_button" data-toggle="modal" >Delete</a>';
             })
             ->rawColumns(['url', 'action'])
             ->make(true);
@@ -121,7 +122,7 @@ class ArticleController extends Controller
         $data = [
             'title' => $request->title,
             'description' => $request->description,
-            'main_image' => $request->main_image,
+            'main_image' => '/img/'.$request->main_image,
             'url' => $request->url,
             'data' => $request->data
         ];
@@ -161,7 +162,7 @@ class ArticleController extends Controller
             $status = 'ok';
             $data['title'] = $article->title;
             $data['description'] = $article->description;
-            $data['main_image'] = asset('img/'.substr($article->main_image, -11));
+            $data['main_image'] = asset($article->main_image);
             $data['data'] = $article->data;
             $data['url'] = $article->url;
         }
@@ -189,7 +190,7 @@ class ArticleController extends Controller
         ];
 
         if($file){
-            $data['main_image'] = $request->main_image;
+            $data['main_image'] = '/img/'.$request->main_image;
             $img = Image::make($file->getRealPath());
             $path= public_path('/img/'.$request->main_image);
             File::isDirectory($path) or  File::makeDirectory(asset('img/'), 0777, true, true);
@@ -197,7 +198,7 @@ class ArticleController extends Controller
         }
 
 
-        $article = Article::where('id', $request->id)->first();
+        $article = Article::find($id);
         if($article) {
             $article
                 ->update($data);
@@ -216,7 +217,7 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         $status = 'fail';
-        $article = Article::where('id', $id)->first();
+        $article = Article::find($id);
         if($article){
               File::delete($article->main_image);
               $article->delete();

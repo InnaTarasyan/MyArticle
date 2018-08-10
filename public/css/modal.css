@@ -31,7 +31,7 @@
 }
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption {
+.myModal #caption {
     margin: auto;
     display: block;
     width: 80%;
@@ -54,7 +54,7 @@
 }
 
 /* The Close Button */
-.close {
+.myModal .close {
     position: absolute;
     top: 15px;
     right: 35px;
@@ -64,8 +64,8 @@
     transition: 0.3s;
 }
 
-.close:hover,
-.close:focus {
+.myModal .close:hover,
+.myModal .close:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
@@ -73,7 +73,7 @@
 
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px){
-    .modal-content {
+    .myModal .modal-content {
         width: 100%;
     }
 }

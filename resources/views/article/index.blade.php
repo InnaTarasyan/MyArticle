@@ -26,5 +26,5 @@
     </table>
 
 
-    <a href="#delModal" role="button" class="btn btn-large btn-primary add" data-toggle="modal">Add Article</a>
+    {{--<a href="#delModal" role="button" class="btn btn-large btn-primary add add_button" data-toggle="modal">Add Article</a>--}}
 @endsection

@@ -1,8 +1,11 @@
 function Article(){
-
+  var totalCount = 1000;
 }
 
 Article.prototype.init = function (total) {
+    var self = this;
+    var test = self.totalCount;
+
     oTable = $('#articles').DataTable({
         "processing": true,
         "serverSide": true,
@@ -14,7 +17,7 @@ Article.prototype.init = function (total) {
                 // startDate: $("#datetimepicker6").find("input").val(),
                 startDate: $("#datetimepicker6").find("input").val(),
                 endDate: $("#datetimepicker7").find("input").val(),
-                total: total ? total : '',
+                total: total ? total : self.totalCount,
                 dataType: "JSON"
             },
         },
@@ -349,6 +352,8 @@ Article.prototype.changeTotalNumber = function (e) {
   var value = $(e.target).text();
     $('#articles').DataTable().clear().destroy();
     this.init(value);
+    this.totalCount = value;
+    $('#totalCount').text('(' + value + ')');
 };
 
 Article.prototype.filterPosts = function () {

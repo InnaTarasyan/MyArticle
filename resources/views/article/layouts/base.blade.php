@@ -39,7 +39,7 @@
                     <div style="padding-bottom: 10%; padding-top: 5%;">
                         <div class="dropdown" >
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                How many total items to see?
+                                How many total items to see? <span id="totalCount">(1000)</span>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu total_count">

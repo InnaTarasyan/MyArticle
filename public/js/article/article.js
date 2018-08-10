@@ -2,7 +2,7 @@ function Article(){
 
 }
 
-Article.prototype.init = function () {
+Article.prototype.init = function (total) {
     oTable = $('#articles').DataTable({
         "processing": true,
         "serverSide": true,
@@ -14,6 +14,7 @@ Article.prototype.init = function () {
                 // startDate: $("#datetimepicker6").find("input").val(),
                 startDate: $("#datetimepicker6").find("input").val(),
                 endDate: $("#datetimepicker7").find("input").val(),
+                total: total ? total : '',
                 dataType: "JSON"
             },
         },
@@ -261,14 +262,13 @@ Article.prototype.bindEvents = function() {
     });
 
     $('#delModal').on('show.bs.modal', function(e) {
+
         if(e.relatedTarget != undefined){
             var target = e.relatedTarget;
             var id = target.id;
 
             if($(target).hasClass("edit")  ){
-               if($(target).hasClass("add")){
-                   return;
-               } else {
+
                    var title = '';
                    var description = '';
                    var main_image = ''
@@ -276,13 +276,9 @@ Article.prototype.bindEvents = function() {
                    var data = '';
 
                    self.edit(id, title, description , main_image, url, data  );
-               }
 
             } else if($(target).hasClass("add")) {
 
-                if($(target).hasClass("edit")){
-                    return;
-                } else {
                     var title = '';
                     var description = '';
                     var main_image = $('#publicpath').val() + '/default.jpg';
@@ -291,8 +287,6 @@ Article.prototype.bindEvents = function() {
 
                     var text = self.dialog(title, description, main_image, data, url );
                     $('.modal-body').append(text);
-                }
-
 
             }
             else if ($(target).hasClass("delete") && $('.editform')[0]) {
@@ -300,9 +294,7 @@ Article.prototype.bindEvents = function() {
             }
 
             $(document).on('click', '.save', function(){
-
                 if($(target).hasClass("delete")){
-
                     if($(target).hasClass("add") || $(target).hasClass("edit") ){
                         return;
                     } else {
@@ -310,10 +302,7 @@ Article.prototype.bindEvents = function() {
                         $(target).removeClass("delete");
                         return;
                     }
-
-
                 } else if($(target).hasClass("edit")){
-
                     if($(target).hasClass("add") || $(target).hasClass("delete") ){
                         return;
                     } else {
@@ -326,7 +315,7 @@ Article.prototype.bindEvents = function() {
                         self.update(id, new_title, new_description, new_data, new_url);
 
                         $(target).removeClass("edit");
-                        $('.add_button').addClass('add');
+
                         return;
                     }
 
@@ -346,12 +335,20 @@ Article.prototype.bindEvents = function() {
                 }
 
 
+
             });
         }
     });
 
     $(document).on('click', '#search_btn', this.filterPosts.bind(this));
+    $(document).on('click', '.total_count li a', this.changeTotalNumber.bind(this));
 
+};
+
+Article.prototype.changeTotalNumber = function (e) {
+  var value = $(e.target).text();
+    $('#articles').DataTable().clear().destroy();
+    this.init(value);
 };
 
 Article.prototype.filterPosts = function () {

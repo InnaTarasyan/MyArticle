@@ -11,6 +11,8 @@
         <div id="caption"></div>
     </div>
 
+
+
     <table id="articles" class="table table-hover table-condensed" style="width:100%; padding-top:1%">
         <thead>
         <tr>

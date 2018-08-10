@@ -34,6 +34,7 @@ class ArticleController extends Controller
     {
         $startDate = $request->get('startDate');
         $endDate = $request->get('endDate');
+        $total = $request->get('total');
 
         $articles = Article::select('*');
 
@@ -45,7 +46,11 @@ class ArticleController extends Controller
             $articles = $articles->whereDate('data', '<=', $endDate);
         }
 
-        if($startDate == '' && $endDate == '') {
+        if($total != ''){
+            $articles = $articles->skip(0)->take($total);
+        }
+
+        if($startDate == '' && $endDate == '' && $total == '') {
             $articles = Article::all();
         } else {
             $articles = $articles->get();

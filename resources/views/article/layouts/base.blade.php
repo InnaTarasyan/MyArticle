@@ -35,6 +35,28 @@
                 <div>
                     <button type="button" id="search_btn" class="btn btn-primary">Search...</button>
                 </div>
+                <div class='col-md-5'>
+                    <div style="padding-bottom: 10%; padding-top: 5%;">
+                        <div class="dropdown" >
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                How many total items to see?
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu total_count">
+                                <li><a href="#">10</a></li>
+                                <li><a href="#">20</a></li>
+                                <li><a href="#">30</a></li>
+                                <li><a href="#">40</a></li>
+                                <li><a href="#">50</a></li>
+                                <li><a href="#">100</a></li>
+                                <li><a href="#">200</a></li>
+                                <li><a href="#">300</a></li>
+                                <li><a href="#">500</a></li>
+                                <li><a href="#">1000</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
             @yield('content')
         </div>

@@ -107,12 +107,12 @@ Article.prototype.dialog = function (title, description, main_image, data, url) 
 
 };
 
-Article.prototype.add = function (id, title, description, main_image, data, url){
+Article.prototype.add = function ( title, description, main_image, data, url){
 
     var uploadedFile = $( '#main_image_file' )[0] && $( '#main_image_file' )[0].files[0];
 
     var fd = new FormData();
-    fd.append('id', id);
+  //  fd.append('id', id);
     fd.append('file', uploadedFile);
     fd.append('title', title),
     fd.append('description', description);
@@ -242,6 +242,40 @@ Article.prototype.update = function (id, title, description, data, url) {
 
 Article.prototype.bindEvents = function() {
 
+    $(document).on('click', '.add_button', function (e) {
+        var title = '';
+        var description = '';
+        var main_image = $('#publicpath').val() + '/default.jpg';
+        var url = '';
+        var data = '';
+
+        var text = self.dialog(title, description, main_image, data, url );
+        $('.modal-body').append(text);
+        $('.save').addClass('append');
+
+    });
+
+    $(document).on('click', '.edit', function (e) {
+
+       var id = e.target.id;
+
+        var title = '';
+        var description = '';
+        var main_image = ''
+        var url = '';
+        var data = '';
+
+        self.edit(id, title, description , main_image, url, data  );
+        $('.save').removeClass('append');
+    });
+
+    $(document).on('click', '#save_article', function(){
+        if($('.save').hasClass('append')){
+            self.add( $('#title').val(),$('#description').val(),$('#main_image').val(), $('#data').val(),$('#url').val()  );
+            return;
+        }
+    });
+
     $(document).on('change', 'input[name=main_image_file]' , function(evt) {
 
         var input = this;
@@ -270,33 +304,13 @@ Article.prototype.bindEvents = function() {
             var target = e.relatedTarget;
             var id = target.id;
 
-            if($(target).hasClass("edit")  ){
-
-                   var title = '';
-                   var description = '';
-                   var main_image = ''
-                   var url = '';
-                   var data = '';
-
-                   self.edit(id, title, description , main_image, url, data  );
-
-            } else if($(target).hasClass("add")) {
-
-                    var title = '';
-                    var description = '';
-                    var main_image = $('#publicpath').val() + '/default.jpg';
-                    var url = '';
-                    var data = '';
-
-                    var text = self.dialog(title, description, main_image, data, url );
-                    $('.modal-body').append(text);
-
-            }
-            else if ($(target).hasClass("delete") && $('.editform')[0]) {
+             if ($(target).hasClass("delete") && $('.editform')[0]) {
                 $( ".editform" ).remove();
             }
 
-            $(document).on('click', '.save', function(){
+
+            $(document).on('click', '#save_article', function(){
+
                 if($(target).hasClass("delete")){
                     if($(target).hasClass("add") || $(target).hasClass("edit") ){
                         return;
@@ -321,23 +335,7 @@ Article.prototype.bindEvents = function() {
 
                         return;
                     }
-
-
-                }  else if($(target).hasClass("add") || $(target).hasClass("delete") ) {
-
-                    if($(target).hasClass("edit")){
-                        return;
-                    } else {
-                        self.add(id, $('#title').val(),$('#description').val(),$('#main_image').val(), $('#data').val(),$('#url').val()  );
-                        $(target).removeClass("add");
-
-                        return;
-                    }
-
-
                 }
-
-
 
             });
         }

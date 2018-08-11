@@ -13,8 +13,17 @@
 
 
 Route::get('/', ['uses'=>'ArticleController@datatable']);
+
 Route::match(['get', 'post'],'/getposts', ['as'=>'datatable.getposts','uses'=>'ArticleController@getPosts']);
 
 Route::resource('articles', 'ArticleController');
 
 Route::post('/destroyAll', 'ArticleController@destroyAll');
+
+Route::get('setlocale/{locale}', function ($locale) {
+
+    if (in_array($locale, \Config::get('app.locales'))) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back();
+});

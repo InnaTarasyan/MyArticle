@@ -80,7 +80,7 @@ class ArticleController extends Controller
                     return '<a href="'.$article->url.'">'.$article->url.'</a>';
             })
             ->addColumn('action', function($article) {
-                return '<a id="' . $article->id . '" data-target="#delModal" href="#delModal" role="button" class="btn btn-large btn-primary edit edit_button" data-toggle="modal" >Edit</a> <a href="#delModal" id="' . $article->id . '" data-target="#delModal" role="button" class="btn btn-large btn-danger delete delete_button" data-toggle="modal" >Delete</a>';
+                return '<a id="' . $article->id . '" data-target="#delModal" href="#delModal" role="button" class="btn btn-large btn-primary edit edit_button" data-toggle="modal" >'.trans('settings.edit').'</a> <a href="#delModal" id="' . $article->id . '" data-target="#delModal" role="button" class="btn btn-large btn-danger delete delete_button" data-toggle="modal" >'.trans('settings.delete').'</a>';
             })
             ->rawColumns(['url', 'action'])
             ->make(true);

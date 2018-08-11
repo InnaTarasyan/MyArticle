@@ -79,6 +79,13 @@ Article.prototype.init = function (total) {
             span.onclick = function() {
                 modal.style.display = "none";
             }
+        },
+        "oLanguage": {
+            "sLengthMenu": "Display _MENU_ records per page",
+            "sZeroRecords": "Nothing found - sorry",
+            "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
+            "sInfoEmpty": "Showing 0 to 0 of 0 records",
+            "sInfoFiltered": "(filtered from _MAX_ total records)"
         }
     });
 
@@ -407,11 +414,18 @@ Article.prototype.filterPosts = function () {
 
 };
 
+function myFunction() {
+    var value = $("#langs option:selected").attr('data-href');
+    window.location.href = value;
+    debugger;
+
+}
 
 $(document).ready(function() {
    var article = new Article();
    article.init();
    article.bindEvents();
+
 });
 
 

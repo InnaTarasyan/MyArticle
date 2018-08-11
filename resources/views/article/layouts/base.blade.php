@@ -5,7 +5,7 @@
         <meta name="_token" content="{{ csrf_token() }}">
         <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        {{--<link rel="stylesheet" href="{{ asset('css/modal.css') }}">--}}
+        <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" />
     </head>
     <body>
@@ -36,7 +36,7 @@
                     <button type="button" id="search_btn" class="btn btn-primary">Search...</button>
                 </div>
                 <div class='col-md-5'>
-                    <div style="padding-bottom: 10%; padding-top: 5%;">
+                    <div style="padding-bottom: 5%; padding-top: 5%;">
                         <div class="dropdown" >
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                                 How many total items to see? <span id="totalCount">(1000)</span>

@@ -12,7 +12,6 @@
     </div>
 
 
-
     <table id="articles" class="table table-hover table-condensed" style="width:100%; padding-top:1%">
         <thead>
         <tr>
@@ -23,10 +22,12 @@
             <th>Data</th>
             <th>Url</th>
             <th>Action</th>
+            <th>Select</th>
         </tr>
         </thead>
     </table>
 
+    <a href="#delModal" role="button" class="btn btn-large btn-primary add add_button" data-toggle="modal" >Add Article</a>
+    <a href="#" role="button" class="btn btn-large btn-danger" data-toggle="modal" id="delete_all" >Delete Selected</a>
 
-    <a href="#delModal" role="button" class="btn btn-large btn-primary add add_button" data-toggle="modal">Add Article</a>
 @endsection

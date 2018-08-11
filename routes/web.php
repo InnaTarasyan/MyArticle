@@ -16,3 +16,5 @@ Route::get('/', ['uses'=>'ArticleController@datatable']);
 Route::match(['get', 'post'],'/getposts', ['as'=>'datatable.getposts','uses'=>'ArticleController@getPosts']);
 
 Route::resource('articles', 'ArticleController');
+
+Route::post('/destroyAll', 'ArticleController@destroyAll');

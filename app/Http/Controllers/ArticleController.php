@@ -230,4 +230,21 @@ class ArticleController extends Controller
         }
         return response()->json(['status' => $status]);
     }
+
+    public function destroyAll(Request $request){
+
+        $status = 'fail';
+        foreach (json_decode($request->data) as $item){
+            $article = Article::find($item);
+            if($article){
+                File::delete($article->main_image);
+                $article->delete();
+                $status = 'ok';
+            } else {
+                $status = 'fail';
+                return response()->json(['status' => $status]);
+            }
+        }
+        return response()->json(['status' => $status]);
+    }
 }

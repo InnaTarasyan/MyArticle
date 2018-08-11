@@ -28,14 +28,22 @@ Article.prototype.init = function (total) {
             {data: 'main_image', name: 'main_image'},
             {data: 'data', name: 'data'},
             {data: 'url', name: 'url'},
-            {data: 'action', name: 'action'}
+            {data: 'action', name: 'action'},
+            {data: 'select', name: 'select'}
         ],
         "columnDefs" : [{
             "targets" : 3 ,
             "data": "main_image",
             "render" : function ( url, type, full) {
                  return  '<img class="myImg" src="' + full.main_image + '" alt="" width="96" height="63">'
-            }},
+            }}, {
+                'targets': 7,
+                'searchable': false,
+                'orderable': false,
+                'className': 'dt-body-center',
+                'render': function (data, type, full, meta){
+                    return '<input type="checkbox" name="' + full["id"]+ '" value="' + $('<div/>').text(data).html() + '">';
+             }},
             { "width": "2%", "targets": 0 },
             { "width": "20%", "targets": 1 },
             { "width": "30%", "targets": 2 },
@@ -276,6 +284,8 @@ Article.prototype.bindEvents = function() {
         }
     });
 
+    $(document).on('click', '#delete_all', this.deleteAll.bind(this));
+
     $(document).on('change', 'input[name=main_image_file]' , function(evt) {
 
         var input = this;
@@ -343,6 +353,42 @@ Article.prototype.bindEvents = function() {
 
     $(document).on('click', '#search_btn', this.filterPosts.bind(this));
     $(document).on('click', '.total_count li a', this.changeTotalNumber.bind(this));
+
+};
+
+Article.prototype.deleteAll = function () {
+
+    var selected = [];
+
+    $('input:checkbox').each(function () {
+        var sThisVal = this.checked ? $(this).attr('name') : "";
+        if(sThisVal != ''){
+            selected.push(sThisVal);
+        }
+    });
+
+
+    var fd = new FormData();
+    fd.append('data', JSON.stringify(selected));
+    fd.append('_token', $('meta[name="_token"]').attr('content'));
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        data: fd,
+        url: 'destroyAll',
+        success: function (data) {
+            if(data.status == 'ok'){
+                oTable.ajax.reload();
+            }
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+
 
 };
 

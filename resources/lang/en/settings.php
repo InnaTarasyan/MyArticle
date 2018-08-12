@@ -16,5 +16,10 @@ return [
     'add_article' => 'Add Article',
     'delete_selected' => 'Delete Selected Articles',
     'edit' => 'Edit',
-    'delete' => 'Delete'
+    'delete' => 'Delete',
+    'save_changes' => 'Save Changes',
+    'close' => 'Close',
+    'modify' => 'Modify/Delete',
+    'select_language' => 'Select Language',
+    'delete_rec' => 'Do you really want to DELETE this article?'
 ];

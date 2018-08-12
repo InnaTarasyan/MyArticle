@@ -5,6 +5,7 @@ function Article(){
 Article.prototype.init = function (total) {
     var self = this;
     var test = self.totalCount;
+    var lang = $('#articles').attr('data-lang');
 
     oTable = $('#articles').DataTable({
         "processing": true,
@@ -56,7 +57,8 @@ Article.prototype.init = function (total) {
             var info = $(this).DataTable().page.info();
             $('td', row).eq(0).html(info.start + index + 1);
         },
-        "pageLength": 5,
+        //"pageLength": 5,
+        "lengthMenu": [[ 5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
         "order": [[ 4, "desc" ]],
         "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
             // Get the modal
@@ -80,47 +82,21 @@ Article.prototype.init = function (total) {
                 modal.style.display = "none";
             }
         },
-        "oLanguage": {
-            "sLengthMenu": "Display _MENU_ records per page",
-            "sZeroRecords": "Nothing found - sorry",
-            "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
-            "sInfoEmpty": "Showing 0 to 0 of 0 records",
-            "sInfoFiltered": "(filtered from _MAX_ total records)"
+        // "oLanguage": {
+        //     "sLengthMenu": "Display _MENU_ records per page",
+        //     "sZeroRecords": "Nothing found - sorry",
+        //     "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
+        //     "sInfoEmpty": "Showing 0 to 0 of 0 records",
+        //     "sInfoFiltered": "(filtered from _MAX_ total records)"
+        // }
+        "language": {
+            "url": (lang == 'am') ? "//cdn.datatables.net/plug-ins/1.10.19/i18n/Armenian.json" : "//cdn.datatables.net/plug-ins/1.10.19/i18n/English.json"
         }
     });
 
 
 };
 
-Article.prototype.dialog = function (title, description, main_image, data, url) {
-
-    return ' <div class="editform">' +
-        ' <div class="form-group editform">\n' +
-        '    <label for="title">Title:</label>\n' +
-        '    <textarea  class="form-control" id="title" rows="2" cols="2" >'+ title + '</textarea>\n' +
-        '  </div>\n' +
-        ' <div class="form-group editform">\n' +
-        '    <label for="description">Description:</label>\n' +
-        '    <textarea  class="form-control" id="description" rows="4" cols="4" >'+ description + '</textarea>\n' +
-        '  </div>\n' +
-        ' <div class="form-group editform row">\n' +
-        ' <div class="col-md-6">'+
-        '    <label for="main_image">Main Image:</label>\n' +
-        '    <img  id="main_image" src="' + main_image + '" width="180" height="120" />\n' +
-        ' </div>'+
-        ' <input type="file" id ="main_image_file" name="main_image_file" class="col-md-6"></input>\n'+
-        '  </div>\n' +
-        ' <div class="form-group editform">\n' +
-        '    <label for="data">Data:</label>\n' +
-        '    <input  type="date" class="form-control" id="data" value='+ data +'>\n' +
-        '  </div>\n' +
-        ' <div class="form-group editform">\n' +
-        '    <label for="url">Url:</label>\n' +
-        '    <input  class="form-control" id="url" value='+ url +'>\n' +
-        '  </div>\n' +
-        ' </div>';
-
-};
 
 Article.prototype.add = function ( title, description, main_image, data, url){
 
@@ -180,7 +156,7 @@ Article.prototype.edit = function(id, title, description, main_image, data, url)
                 data = res.data.data;
 
                 var text = self.dialog(title, description, main_image, data, url);
-                $('.modal-body').append(text);
+                $('.modal-body').html(text);
 
             }
         },
@@ -265,7 +241,7 @@ Article.prototype.bindEvents = function() {
         var data = '';
 
         var text = self.dialog(title, description, main_image, data, url );
-        $('.modal-body').append(text);
+        $('.modal-body').html(text);
         $('.save').addClass('append');
 
     });
@@ -417,8 +393,6 @@ Article.prototype.filterPosts = function () {
 function myFunction() {
     var value = $("#langs option:selected").attr('data-href');
     window.location.href = value;
-    debugger;
-
 }
 
 $(document).ready(function() {

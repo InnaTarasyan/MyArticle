@@ -11,7 +11,7 @@
         <div id="caption"></div>
     </div>
 
-    <table id="articles" class="table table-hover table-condensed" style="width:100%; padding-top:1%">
+    <table id="articles" class="table table-hover table-condensed" style="width:100%;" data-lang="{{ Config::get('app.locale') }}">
         <thead>
         <tr>
             <th> {{ trans('settings.id') }} </th>
@@ -26,7 +26,9 @@
         </thead>
     </table>
 
-    <a href="#delModal" role="button" class="btn btn-large btn-primary add add_button" data-toggle="modal" > {{ trans('settings.add_article') }}</a>
-    <a href="#" role="button" class="btn btn-large btn-danger" data-toggle="modal" id="delete_all" > {{ trans('settings.delete_selected') }} </a>
+    <div style="padding-bottom: 5%;">
+        <a href="#delModal" role="button" class="btn btn-large btn-primary add add_button" data-toggle="modal" > {{ trans('settings.add_article') }}</a>
+        <a href="#" role="button" class="btn btn-large btn-danger" data-toggle="modal" id="delete_all" > {{ trans('settings.delete_selected') }} </a>
+    </div>
 
 @endsection

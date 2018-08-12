@@ -11,10 +11,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.css">
     </head>
     <body>
-    <div id="navbar-main">
-
         <div style="text-align: right; padding-right: 2%;padding-top: 2%;">
-            <select class="selectpicker" onchange="myFunction()" data-width="fit"  id="langs" name="langs" >
+            <select class="selectpicker" onchange="myFunction()" data-width="fit"  id="langs" name="langs"  >
                 <option data-content='<span class=""></span> {{ trans('settings.select_language') }}'>" select</option>
                 <option data-content='<span  class="flag-icon flag-icon-am"></span> Armenian' data-href="{{ URL::to('setlocale/am') }}" >am</option>
                 <option data-content='<span  class="flag-icon flag-icon-us"></span> English' data-href="{{ URL::to('setlocale/en')}}">en</option>
@@ -26,7 +24,7 @@
                 <div class='col-md-5'>
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker6' style="z-index: 1">
-                            <input type='text' class="form-control" placeholder="{{ trans('settings.start_date') }}"/>
+                            <input type='text' class="form-control" placeholder="{{ trans('settings.start_date') }}" data-toggle="tooltip" data-placement="bottom" title="{{ trans('settings.start_date_desc') }}"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -36,7 +34,7 @@
                 <div class='col-md-5'>
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker7' style="z-index: 1">
-                            <input type='text' class="form-control" placeholder="{{ trans('settings.end_date') }}"/>
+                            <input type='text' class="form-control" placeholder="{{ trans('settings.end_date') }}" data-toggle="tooltip" data-placement="bottom" title="{{ trans('settings.end_date_desc') }}"/>
                             <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -44,12 +42,12 @@
                     </div>
                 </div>
                 <div>
-                    <button type="button" id="search_btn" class="btn btn-primary"> {{ trans('settings.search') }}...</button>
+                    <button type="button" id="search_btn" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="{{ trans('settings.search') }}"> {{ trans('settings.search') }}...</button>
                 </div>
                 <div class='col-md-5'>
                     <div style="padding-bottom: 5%; padding-top: 5%;">
-                        <div class="dropdown" >
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        <div class="dropdown" data-toggle="tooltip" data-placement="bottom" title="{{ trans('settings.total_desc') }}">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >
                                  {{ trans('settings.total') }} <span id="totalCount">(1000)</span>
                                 <span class="caret"></span>
                             </button>
@@ -105,9 +103,10 @@
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.js"></script>
+        <script src="{{ asset('js/bootstrap-tooltip.js') }}"></script>
         <script type="text/javascript">
             $(function () {
-
+                $("body").tooltip({ selector: '[data-toggle=tooltip]' });
                 $('#datetimepicker6').datetimepicker({
                     format: 'YYYY/MM/DD',
                     locale: $('#articles').attr('data-lang')

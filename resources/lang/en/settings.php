@@ -21,5 +21,8 @@ return [
     'close' => 'Close',
     'modify' => 'Modify/Delete',
     'select_language' => 'Select Language',
-    'delete_rec' => 'Do you really want to DELETE this article?'
+    'delete_rec' => 'Do you really want to DELETE this article?',
+    'start_date_desc' => 'Input a Starting Date for the Articles',
+    'end_date_desc' => 'Input an End Date before which you want to see the Articles. The End Date must be greater than the Start Date.',
+    'total_desc' => 'How many total items you want to see?'
 ];

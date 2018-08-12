@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'site_name' => 'Tert.am news outlet guide',
     'id' => 'id',
     'title' => 'title',
     'desc' => 'description',
@@ -24,5 +25,15 @@ return [
     'delete_rec' => 'Do you really want to DELETE this article?',
     'start_date_desc' => 'Input a Starting Date for the Articles',
     'end_date_desc' => 'Input an End Date before which you want to see the Articles. The End Date must be greater than the Start Date.',
-    'total_desc' => 'How many total items you want to see?'
+    'total_desc' => 'How many total items you want to see?',
+    'home' => 'Home',
+    'about' => 'About',
+    'contact' => 'Contact',
+    'submit' => 'Submit',
+    'username' => 'User Name',
+    'email' => 'User Email',
+    'message' => 'User Message',
+    'required' => 'Field is Required',
+    'valid_email' => 'The email must be a valid email address.',
+    'sent_email' => 'Email is Sent!'
 ];

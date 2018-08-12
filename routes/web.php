@@ -27,3 +27,5 @@ Route::get('setlocale/{locale}', function ($locale) {
     }
     return redirect()->back();
 });
+
+Route::match(['get', 'post'], '/about', ['uses' => 'HomeController@about', 'as' => 'about']);

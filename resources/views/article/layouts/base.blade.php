@@ -11,7 +11,20 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.css">
     </head>
     <body>
-        <div style="text-align: right; padding-right: 2%;padding-top: 2%;">
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/"> {{ trans('settings.site_name') }}</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/"> {{ trans('settings.home') }} </a></li>
+                    <li><a href="{{ route('about') }}"> {{ trans('settings.about') }} </a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div style="text-align: right; padding-right: 1%;padding-top: 1%;">
             <select class="selectpicker" onchange="myFunction()" data-width="fit"  id="langs" name="langs"  >
                 <option data-content='<span class=""></span> {{ trans('settings.select_language') }}'>" select</option>
                 <option data-content='<span  class="flag-icon flag-icon-am"></span> Armenian' data-href="{{ URL::to('setlocale/am') }}" >am</option>
@@ -19,54 +32,7 @@
             </select>
         </div>
 
-        <div class="container" style="padding-top:5%">
-            <div class="container" style="padding-bottom: 5%;">
-                <div class='col-md-5'>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker6' style="z-index: 1">
-                            <input type='text' class="form-control" placeholder="{{ trans('settings.start_date') }}" data-toggle="tooltip" data-placement="bottom" title="{{ trans('settings.start_date_desc') }}"/>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class='col-md-5'>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker7' style="z-index: 1">
-                            <input type='text' class="form-control" placeholder="{{ trans('settings.end_date') }}" data-toggle="tooltip" data-placement="bottom" title="{{ trans('settings.end_date_desc') }}"/>
-                            <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <button type="button" id="search_btn" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="{{ trans('settings.search') }}"> {{ trans('settings.search') }}...</button>
-                </div>
-                <div class='col-md-5'>
-                    <div style="padding-bottom: 5%; padding-top: 5%;">
-                        <div class="dropdown" data-toggle="tooltip" data-placement="bottom" title="{{ trans('settings.total_desc') }}">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >
-                                 {{ trans('settings.total') }} <span id="totalCount">(1000)</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu total_count">
-                                <li><a href="#">10</a></li>
-                                <li><a href="#">20</a></li>
-                                <li><a href="#">30</a></li>
-                                <li><a href="#">40</a></li>
-                                <li><a href="#">50</a></li>
-                                <li><a href="#">100</a></li>
-                                <li><a href="#">200</a></li>
-                                <li><a href="#">300</a></li>
-                                <li><a href="#">500</a></li>
-                                <li><a href="#">1000</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="container" style="padding-top:2%">
             @yield('content')
         </div>
         <input type="hidden" id="myroute" value="{{ route('datatable.getposts') }}">
@@ -158,6 +124,18 @@
 
             };
         </script>
-
+        <script>
+            function myMap() {
+                var myCenter = new google.maps.LatLng(40.182344, 44.513337);
+                var mapCanvas = document.getElementById("map");
+                var mapOptions = {center: myCenter, zoom: 5};
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+                var marker = new google.maps.Marker({position:myCenter});
+                marker.setMap(map);
+            }
+        </script>
+        @if(isset($key))
+           <script src="https://maps.googleapis.com/maps/api/js?key={{$key}}&language={{  App::getLocale() == 'en' ? 'en' : 'hy'}}&callback=myMap"></script>
+        @endif
     </footer>
 </html>

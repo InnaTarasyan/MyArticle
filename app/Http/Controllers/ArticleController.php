@@ -224,7 +224,7 @@ class ArticleController extends Controller
         $status = 'fail';
         $article = Article::find($id);
         if($article){
-              File::delete($article->main_image);
+              File::delete('img/'.$article->main_image);
               $article->delete();
               $status = 'ok';
         }
@@ -237,7 +237,7 @@ class ArticleController extends Controller
         foreach (json_decode($request->data) as $item){
             $article = Article::find($item);
             if($article){
-                File::delete($article->main_image);
+                File::delete('img/'.$article->main_image);
                 $article->delete();
                 $status = 'ok';
             } else {

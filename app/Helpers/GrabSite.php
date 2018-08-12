@@ -129,7 +129,7 @@ class GrabSite
 
     protected function clean(){
         foreach (Article::all() as $article){
-            File::delete($article->main_image);
+            File::delete('img/'.$article->main_image);
         }
 
         Article::truncate();

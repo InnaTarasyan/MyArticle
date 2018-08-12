@@ -236,7 +236,7 @@ Article.prototype.bindEvents = function() {
     $(document).on('click', '.add_button', function (e) {
         var title = '';
         var description = '';
-        var main_image = $('#publicpath').val() + '/default.jpg';
+        var main_image =  'default.jpg';
         var url = '';
         var data = '';
 

@@ -20,7 +20,7 @@ class GrabSite extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Get Data from tert.am site';
 
     /**
      * Create a new command instance.

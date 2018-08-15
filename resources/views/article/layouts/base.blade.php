@@ -9,6 +9,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.css">
+        <meta name="description" content="Tert.am analizer">
+        <meta name="keywords" content="tert.am, Inna Tarasyan">
+        <meta name="author" content="Inna Tarasyan">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        @yield('css')
     </head>
     <body>
 
@@ -18,8 +23,8 @@
                     <a class="navbar-brand" href="/"> {{ trans('settings.site_name') }}</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/"> {{ trans('settings.home') }} </a></li>
-                    <li><a href="{{ route('about') }}"> {{ trans('settings.about') }} </a></li>
+                    <li class="{{ \Request::is('/')? 'active': '' }}"><a href="/"> {{ trans('settings.home') }} </a></li>
+                    <li class="{{ \Request::is('about')? 'active': '' }}"><a href="{{ route('about') }}"> {{ trans('settings.about') }} </a></li>
                 </ul>
             </div>
         </nav>
@@ -137,5 +142,6 @@
         @if(isset($key))
            <script src="https://maps.googleapis.com/maps/api/js?key={{$key}}&language={{  App::getLocale() == 'en' ? 'en' : 'hy'}}&callback=myMap"></script>
         @endif
+        @yield('scripts')
     </footer>
 </html>

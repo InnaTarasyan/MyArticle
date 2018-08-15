@@ -1,9 +1,35 @@
 @extends('article.layouts.base')
+@section('css')
+    <style>
+        .span4 img {
+            margin-right: 10px;
+        }
+        .span4 .img-left {
+            float: left;
+        }
+    </style>
+@endsection
 @section('content')
-    <div id="contactUs" style="padding-top: 8%;">
-
+    <div id="contactUs" >
         <div class="container">
-            <div class="row text-center">
+            <div class="row">
+                <h2 style="text-align: center">{{ trans('settings.site_description') }}</h2>
+            </div>
+
+            <div class="block">
+                <div class="row">
+                    <div class="span4">
+                        <img class="img-left" src="{{ asset('inna_photo.jpg') }}" style="width: 15%"/>
+                        {!! trans('settings.about_inna') !!}
+                        {!! trans('settings.about_site') !!}
+                    </div>
+                </div>
+                <br/>
+            </div>
+
+        </div>
+        <div class="container">
+            <div class="row text-center" style="padding-top: 8%;">
                 <div class="site-title text-center ">
                     <h3> {{ trans('settings.contact') }}</h3>
                 </div>
@@ -48,4 +74,6 @@
         <hr>
         <br><br>
     </div>
-        @endsection
+@endsection
+
+

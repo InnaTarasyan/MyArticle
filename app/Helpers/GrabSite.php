@@ -36,8 +36,8 @@ class GrabSite
         $base_url = "http://www.tert.am/am/news/";
 
         while (strtotime($end_date) >= strtotime($date)) {
-            $urls[] = $base_url . $date;
-            $date = date("Y/m/d", strtotime("+1 day", strtotime($date)));
+            $urls[] = $base_url . $end_date;
+            $end_date = date("Y/m/d", strtotime("-1 day", strtotime($end_date)));
         }
 
 
